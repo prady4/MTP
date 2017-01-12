@@ -207,7 +207,7 @@ cid_id = [10,16,40,44,50]
 idx = pd.date_range('2006-01-01', '2015-06-23')
 
 
-labels = ['2006', '2007', '2008', '2009', '2010', '2011', '2012', '2013', '2014', '2015']
+labels = ['2007', '2008', '2009', '2010', '2011', '2012', '2013', '2014', '2015']
 d = [i*365 for i in range(1,10)]
 
 for i in mid_id:
@@ -256,9 +256,9 @@ plt.show()
 
 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'sept', 'oct', 'Nov', 'Dec', 
 
-labels = ['Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'sept', 'oct', 'Nov', 'Dec', '2007', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'sept', 'oct', 'Nov', 'Dec', '2008', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'sept', 'oct', 'Nov', 'Dec', '2009', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'sept', 'oct', 'Nov', 'Dec', '2010', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'sept', 'oct', 'Nov', 'Dec', '2011', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'sept', 'oct', 'Nov', 'Dec', '2012', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'sept', 'oct', 'Nov', 'Dec', '2013', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'sept', 'oct', 'Nov', 'Dec', '2014', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'sept', 'oct', 'Nov', 'Dec', '2015', '2007', 'Feb', 'Mar', 'Apr', 'May', 'June']
+labels = ['Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'sept', 'oct', 'Nov', 'Dec', '2007', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'sept', 'oct', 'Nov', 'Dec', '2008', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'sept', 'oct', 'Nov', 'Dec', '2009', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'sept', 'oct', 'Nov', 'Dec', '2010', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'sept', 'oct', 'Nov', 'Dec', '2011', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'sept', 'oct', 'Nov', 'Dec', '2012', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'sept', 'oct', 'Nov', 'Dec', '2013', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'sept', 'oct', 'Nov', 'Dec', '2014', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'sept', 'oct', 'Nov', 'Dec', '2015', 'Feb', 'Mar', 'Apr', 'May', 'June']
 d = [i*30 for i in range(1,113)]
-d = [31,28,31,30,31,30,31,31,30,31,30,31, 31,28,31,30,31,30,31,31,30,31,30,31, 31,29,31,30,31,30,31,31,30,31,30,31, 31,28,31,30,31,30,31,31,30,31,30,31,31,28,31,30,31,30,31,31,30,31,30,31,31,28,31,30,31,30,31,31,30,31,30,31,31,29,31,30,31,30,31,31,30,31,30,31,31,28,31,30,31,30,31,31,30,31,30,31,31,28,31,30,31,30,31,31,30,31,23]
+d = [31,28,31,30,31,30,31,31,30,31,30,31, 31,28,31,30,31,30,31,31,30,31,30,31, 31,29,31,30,31,30,31,31,30,31,30,31, 31,28,31,30,31,30,31,31,30,31,30,31,31,28,31,30,31,30,31,31,30,31,30,31,31,28,31,30,31,30,31,31,30,31,30,31,31,29,31,30,31,30,31,31,30,31,30,31,31,28,31,30,31,30,31,31,30,31,30,31,31,28,31,30,31,30,31,31,30,31,30,31,31,28,31,30,31,23]
 for i in d:
 	e.append(i+x)
 	x = e[len(e)-1]

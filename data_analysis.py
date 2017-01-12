@@ -6,23 +6,23 @@ import matplotlib.pyplot as plt
 #pre-process
 data = pd.read_csv("Retail.csv", header=None)
 #d = data.ix[:,1]
-data.columns = ["dod","cid","price"]
+data.columns = ["date","cid","price"]
 
 
 #Filling dates
 d = data[data["cid"] == 16]
-e = d[d["dod"] >= "2006-01-01"]
-e = e[e["dod"] <= "2015-06-23"]
-e = e.sort(["dod"], ascending = True)
-e = e.drop_duplicates(cols='dod', take_last=True)
-e['dod'] =  pd.to_datetime(e['dod'], format='%Y-%m-%d')
-e.drop('cid', axis=1, inplace=True)
-e.set_index('dod', inplace=True)
+e = d[d["date"] >= "2006-01-01"]
+e = e[e["date"] <= "2015-06-23"]
+e = e.sort(["date"], ascending = True)
+e = e.drop_duplicates(cols='date', take_last=True)
+e['date'] =  pd.to_datetime(e['date'], format='%Y-%m-%d')
+#e.drop('cid', axis=1, inplace=True)
+e.set_index('date', inplace=True)
 idx = pd.date_range('2006-01-01', '2015-06-23')
 e = e.reindex(idx, fill_value=0)	#Or null
-#g['dod'] = g.index
+#g['date'] = g.index
 e.reset_index(level=0, inplace=True)
-e.columns = ["dod","price"]
+e.columns = ["date","cid","price"]
 
 
 #before filling distribution
@@ -50,9 +50,9 @@ plt.show()
 nc = []
 for index in range(1,77):
 	d = data[data["cid"] == index]
-	e = d[d["dod"] >= "2006-01-01"]
-	e = e[e["dod"] <= "2015-06-23"]
-	e = e.sort(["dod"], ascending = True)
+	e = d[d["date"] >= "2006-01-01"]
+	e = e[e["date"] <= "2015-06-23"]
+	e = e.sort(["date"], ascending = True)
 	f = e.ix[:,2]
 	nc.append(f.isnull().sum())
 
@@ -60,10 +60,10 @@ for index in range(1,77):
 dc = []
 for index in range(1,77):
 	d = data[data["cid"] == index]
-	e = d[d["dod"] >= "2006-01-01"]
-	e = e[e["dod"] <= "2015-06-23"]
-	e = e.sort(["dod"], ascending = True)
-	e.drop_duplicates(cols='dod', take_last=True)
+	e = d[d["date"] >= "2006-01-01"]
+	e = e[e["date"] <= "2015-06-23"]
+	e = e.sort(["date"], ascending = True)
+	e.drop_duplicates(cols='date', take_last=True)
 	#e[e.ix[:,0].duplicated()]
 	#print "\n"
 
@@ -72,13 +72,13 @@ for index in range(1,77):
 nc = []
 for index in range(1,77):
 	d = data[data["cid"] == index]
-	e = d[d["dod"] >= "2006-01-01"]
-	e = e[e["dod"] <= "2015-06-23"]
-	e = e.sort(["dod"], ascending = True)
-	e = e.drop_duplicates(cols='dod', take_last=True)
-	e['dod'] =  pd.to_datetime(e['dod'], format='%Y-%m-%d')
+	e = d[d["date"] >= "2006-01-01"]
+	e = e[e["date"] <= "2015-06-23"]
+	e = e.sort(["date"], ascending = True)
+	e = e.drop_duplicates(cols='date', take_last=True)
+	e['date'] =  pd.to_datetime(e['date'], format='%Y-%m-%d')
 	e.drop('cid', axis=1, inplace=True)
-	e.set_index('dod', inplace=True)
+	e.set_index('date', inplace=True)
 	idx = pd.date_range('2006-01-01', '2015-06-23')
 	e = e.reindex(idx, fill_value=0)
 	nc.append(len(e[e["price"] == 0]))
@@ -102,9 +102,9 @@ pd.ewma(e, span=7)
 
 #f.nunique()
 g = f.value_counts()	#dropna = False
-g['dod'] = g.index
+g['date'] = g.index
 i = g
-j = i.sort(["dod"], ascending = True)
+j = i.sort(["date"], ascending = True)
 y = list(j.ix[:,0])
 x = list(j.ix[:,1])
 #j.plot()
@@ -122,8 +122,8 @@ f.nunique()
 nc = []
 for index in range(1,77):
 	d = data[data["cid"] == index]
-	e = d[d["dod"] >= "2006-01-01"]
-	e = e[e["dod"] <= "2015-06-23"]
+	e = d[d["date"] >= "2006-01-01"]
+	e = e[e["date"] <= "2015-06-23"]
 	nc.append(len(e))
 	
 plt.plot(a)

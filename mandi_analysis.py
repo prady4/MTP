@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 mandi = pd.read_csv("mandis.csv", header=None)
 mandi.columns = ["mid", "mname", "scode", "lati", "long", "cid"]
 ws = pd.read_csv("WS.csv", header=None)
-ws.columns = ["dod", "mid", "arrival", "origin", "var", "min", "max", "price"]
+ws.columns = ["date", "mid", "arrival", "origin", "var", "min", "max", "price"]
 
 for c in range(1,77):
 	d = mandi[mandi["cid"] == c]
@@ -15,16 +15,16 @@ for c in range(1,77):
 	for x in e:
 		f = ws[ws["mid"] == x]
 		f.drop(f.columns[[1,3,4,5,6]], axis=1, inplace=True)
-		f = f[f["dod"] >= "2006-01-01"]
-		f = f[f["dod"] <= "2015-06-23"]
-		f = f.sort(["dod"], ascending = True)
-		f = f.drop_duplicates(cols='dod', take_last=True)
-		f['dod'] =  pd.to_datetime(f['dod'], format='%Y-%m-%d')
-		f.set_index('dod', inplace=True)
+		f = f[f["date"] >= "2006-01-01"]
+		f = f[f["date"] <= "2015-06-23"]
+		f = f.sort(["date"], ascending = True)
+		f = f.drop_duplicates(cols='date', take_last=True)
+		f['date'] =  pd.to_datetime(f['date'], format='%Y-%m-%d')
+		f.set_index('date', inplace=True)
 		idx = pd.date_range('2006-01-01', '2015-06-23')
 		f = f.reindex(idx, fill_value=0)
 		f.reset_index(level=0, inplace=True)
-		f.columns = ["dod","arrival", "price"]
+		f.columns = ["date","arrival", "price"]
 		nc[c].append(len(f[f["price"] == 0]))
 		
 		
@@ -44,9 +44,9 @@ data = data.sort(["mid"], ascending = True)
 for c in mandi.ix[:,0]:
 	f = data[data["mid"] == c]
 	#f.drop(f.columns[[1,3,4,5,6]], axis=1, inplace=True)
-	f = f[f["dod"] >= "2006-01-01"]
-	f = f[f["dod"] <= "2015-06-23"]
-	g = f.drop_duplicates(cols='dod', take_last=True)
+	f = f[f["date"] >= "2006-01-01"]
+	f = f[f["date"] <= "2015-06-23"]
+	g = f.drop_duplicates(cols='date', take_last=True)
 	nv[c-1] = len(g)
 
 x_labels = np.arange(36)
@@ -79,18 +79,18 @@ e = d.ix[:,0]
 for x in e:
 	f = ws[ws["mid"] == x]
 	f.drop(f.columns[[1,3,4,5,6]], axis=1, inplace=True)
-	f = f[f["dod"] >= "2006-01-01"]
-	f = f[f["dod"] <= "2015-06-23"]
-	f = f.sort(["dod"], ascending = True)
-	f = f.drop_duplicates(cols='dod', take_last=True)
+	f = f[f["date"] >= "2006-01-01"]
+	f = f[f["date"] <= "2015-06-23"]
+	f = f.sort(["date"], ascending = True)
+	f = f.drop_duplicates(cols='date', take_last=True)
 	print len(f)
 	if len(f) > 1900:
-		f['dod'] =  pd.to_datetime(f['dod'], format='%Y-%m-%d')
-		f.set_index('dod', inplace=True)
+		f['date'] =  pd.to_datetime(f['date'], format='%Y-%m-%d')
+		f.set_index('date', inplace=True)
 		idx = pd.date_range('2006-01-01', '2015-06-23')
 		f = f.reindex(idx, fill_value=0)
 		f.reset_index(level=0, inplace=True)
-		f.columns = ["dod","arrival", "price"]
+		f.columns = ["date","arrival", "price"]
 		f["price"] = pd.ewma(f["price"], span=70)
 		plt.plot(f["price"])
 		plt.xticks([260, 520, 780, 1040, 1300, 1560, 1820, 2080, 2340, 2600, 2860, 3120, 3380])
@@ -118,9 +118,9 @@ for c in range(1,77):
 	for x in e:
 		f = ws[ws["mid"] == x]
 		f.drop(f.columns[[1,3,4,5,6]], axis=1, inplace=True)
-		f = f[f["dod"] >= "2006-01-01"]
-		f = f[f["dod"] <= "2015-06-23"]
-		f = f.drop_duplicates(cols='dod', take_last=True)
+		f = f[f["date"] >= "2006-01-01"]
+		f = f[f["date"] <= "2015-06-23"]
+		f = f.drop_duplicates(cols='date', take_last=True)
 		if (len(f)) > 1900:
 			nc[c-1].append(len(f))
 		
@@ -159,7 +159,7 @@ ncns = []
 
 for i in range(1,77):
 	f = data[data["cid"] == i]
-	f = f.drop_duplicates(cols='dod', take_last=True)
+	f = f.drop_duplicates(cols='date', take_last=True)
 	if len(f) > 1900:
 		cid.append(i)
 		count = 0
@@ -168,10 +168,10 @@ for i in range(1,77):
 		for x in e:
 			f = ws[ws["mid"] == x]
 			f.drop(f.columns[[1,3,4,5,6]], axis=1, inplace=True)
-			f = f[f["dod"] >= "2006-01-01"]
-			f = f[f["dod"] <= "2015-06-23"]
-			f = f.sort(["dod"], ascending = True)
-			f = f.drop_duplicates(cols='dod', take_last=True)
+			f = f[f["date"] >= "2006-01-01"]
+			f = f[f["date"] <= "2015-06-23"]
+			f = f.sort(["date"], ascending = True)
+			f = f.drop_duplicates(cols='date', take_last=True)
 			if len(f) > 1500:
 				count = count + 1
 		ncc.append(count)

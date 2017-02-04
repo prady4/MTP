@@ -1,0 +1,74 @@
+import pandas as pd
+import numpy as np
+import datetime
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+
+anom = pd.read_csv("anom1.tsv", sep='\t')
+retail = pd.read_csv("processed_retail.csv")
+index = [1,3,4,12,16]
+selectedAnom = anom.ix[index].reset_index()
+
+for i in range(0, len(selectedAnom)):
+	startIndex = (datetime.datetime.strptime(selectedAnom['start'][i], '%d/%m/%Y') - datetime.datetime.strptime('01Jan2006', '%d%b%Y')).days
+	endIndex = (datetime.datetime.strptime(selectedAnom['end'][i], '%d/%m/%Y') - datetime.datetime.strptime('01Jan2006', '%d%b%Y')).days
+	newFrame = retail.ix[startIndex:endIndex]
+	plt.figure(1)
+	plt.subplot(511)
+	plt.plot(newFrame['DELHI'])
+	plt.subplot(512)
+	plt.plot(newFrame['LUCKNOW'])
+	plt.subplot(513)
+	plt.plot(newFrame['MUMBAI'])
+	plt.subplot(514)
+	plt.plot(newFrame['PATNA'])
+	plt.subplot(515)
+	plt.plot(newFrame['BHUBANESHWAR'])
+	plt.show()
+
+
+ws = pd.read_csv("delhi_arrival.csv", header=None)
+index = [3,4,12,16]
+for i in range(0, len(selectedAnom)):
+	startIndex = (datetime.datetime.strptime(selectedAnom['start'][i], '%d/%m/%Y') - datetime.datetime.strptime('01Jan2006', '%d%b%Y')).days
+	endIndex = (datetime.datetime.strptime(selectedAnom['end'][i], '%d/%m/%Y') - datetime.datetime.strptime('01Jan2006', '%d%b%Y')).days
+	newFrame1 = ws.ix[startIndex:endIndex]
+	newFrame = retail.ix[startIndex:endIndex]
+	plt.figure(1)
+	plt.subplot(411)
+	plt.plot(newFrame['DELHI'])
+	plt.subplot(412)
+	plt.plot(newFrame1[0])
+	plt.subplot(413)
+	plt.plot(newFrame1[1])
+	plt.subplot(414)
+	plt.plot(newFrame1[2])
+	plt.show()
+	plt.figure(2)
+	plt.subplot(411)
+	plt.plot(newFrame['DELHI'])
+	plt.subplot(412)
+	plt.plot(newFrame1[3])
+	plt.subplot(413)
+	plt.plot(newFrame1[4])
+	plt.subplot(414)
+	plt.plot(newFrame1[5])
+	plt.show()
+	plt.figure(3)
+	plt.subplot(411)
+	plt.plot(newFrame['DELHI'])
+	plt.subplot(412)
+	plt.plot(newFrame1[6])
+	plt.subplot(413)
+	plt.plot(newFrame1[7])
+	plt.subplot(414)
+	plt.plot(newFrame1[8])
+	plt.show()
+	plt.figure(4)
+	plt.subplot(311)
+	plt.plot(newFrame['DELHI'])
+	plt.subplot(312)
+	plt.plot(newFrame1[9])
+	plt.subplot(313)
+	plt.plot(newFrame1[10])
+	plt.show()

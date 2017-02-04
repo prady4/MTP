@@ -53,8 +53,8 @@ fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
 i = 0
 for c, z in zip(['r', 'g', 'b', 'y', 'c'], [40, 30, 20, 10, 0]):
-	xs = np.arange(len(matrix[2][0]))
-	ys = matrix[2][i]	#index of other centres
+	xs = np.arange(len(matrix[1][0]))	#1 for delhi
+	ys = matrix[1][i]	#index of other centres
 	cs = [c] * len(xs)
 	cs[0] = 'c'
 	ax.bar(xs, ys, zs=z, zdir='y', color=cs, alpha=0.8)

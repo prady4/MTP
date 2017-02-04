@@ -19,7 +19,7 @@ e['date'] =  pd.to_datetime(e['date'], format='%Y-%m-%d')
 #e.drop('cid', axis=1, inplace=True)
 e.set_index('date', inplace=True)
 idx = pd.date_range('2006-01-01', '2015-06-23')
-e = e.reindex(idx, fill_value=0)	#Or null
+e = e.reindex(idx)	#Or null
 #g['date'] = g.index
 e.reset_index(level=0, inplace=True)
 e.columns = ["date","cid","price"]

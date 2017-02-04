@@ -21,8 +21,8 @@ for i in mid:
 	f = f.reindex(idx)
 	f = f.reset_index()
 	f = f.interpolate(method='pchip')
-	d[i] = f['price']
+	d[i] = f['arrival']
 
-d.to_csv('processed_ws_with_NAN.csv', index=False)
+d.to_csv('delhi_arrival_with_NAN.csv', index=False)
 e = d.fillna(method='bfill')
-e.to_csv('processed_ws.csv', index=True)
+e.to_csv('delhi_arrival.csv', index=True)

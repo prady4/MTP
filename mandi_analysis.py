@@ -4,16 +4,31 @@ from datetime import datetime
 import matplotlib.pyplot as plt
 
 #pre-process
-mandi = pd.read_csv("mandis.csv", header=None)
+mandi = pd.read_csv("mandis.csv") #, header=None
 mandi.columns = ["mid", "mname", "scode", "lati", "long", "cid"]
 ws = pd.read_csv("WS.csv", header=None)
 ws.columns = ["date", "mid", "arrival", "origin", "var", "min", "max", "price"]
+
+def no_days_mandis(centreid):
+	d = mandi[mandi["cid"] == centreid]
+	d = d.reset_index()
+	d.drop(d.columns[[0]], axis=1, inplace=True)
+	d.columns = ["mid", "mname", "days", "lati", "long", "cid"]
+	for i in range(0, len(d)):
+		f = ws[ws["mid"] == d["mid"][i]]
+		f.drop(f.columns[[1,3,4,5,6]], axis=1, inplace=True)
+		f = f[f["date"] >= "2006-01-01"]
+		f = f[f["date"] <= "2015-06-23"]
+		f = f.sort(["date"], ascending = True)
+		f = f.drop_duplicates(cols='date', take_last=True)
+		d["days"][i] = len(f)
+	return d
 
 for c in range(1,77):
 	d = mandi[mandi["cid"] == c]
 	e = d.ix[:,0]
 	for x in e:
-		f = ws[ws["mid"] == x]
+		f = ws[ws["mid"] == 474]
 		f.drop(f.columns[[1,3,4,5,6]], axis=1, inplace=True)
 		f = f[f["date"] >= "2006-01-01"]
 		f = f[f["date"] <= "2015-06-23"]
@@ -23,7 +38,7 @@ for c in range(1,77):
 		f.set_index('date', inplace=True)
 		idx = pd.date_range('2006-01-01', '2015-06-23')
 		f = f.reindex(idx, fill_value=0)
-		f.reset_index(level=0, inplace=True)
+		f = f.reset_index() #level=0, inplace=True
 		f.columns = ["date","arrival", "price"]
 		nc[c].append(len(f[f["price"] == 0]))
 		

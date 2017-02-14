@@ -219,3 +219,91 @@ for i in range(0, len(selectedAnom)):
 	plt.legend(loc='upper right')
 	plt.show()
 	x = x + 1
+
+
+
+import pandas as pd
+import numpy as np
+import datetime
+import matplotlib.pyplot as plt
+from scipy import signal
+
+from sklearn.decomposition import FastICA, PCA
+retail = pd.read_csv("processed_retail.csv")
+X = retail.ix[:,1:6]
+
+ica = FastICA(n_components=2)
+S_ = ica.fit_transform(X)
+A_ = ica.mixing_
+
+#for i in range(0, len(A_)):
+plt.plot(S_.T[i]*A_[2][i] + ica.mean_[2])
+plt.plot(X["DELHI"], 'r')
+plt.show()
+
+pic1 = ic1
+pic2 = ic2
+pa_ = A_
+ps_ = S_
+
+
+ic1 = S_.T[0]
+ic2 = S_.T[1]
+ic3 = S_.T[2]
+ic4 = S_.T[3]
+ic5 = S_.T[4]
+
+plt.plot(ic1)
+plt.show()
+plt.plot(ic2)
+plt.plot(ic3)
+#plt.plot(ic4)
+#plt.plot(ic5)
+
+rc11 = ic1*A_[4][0]
+rc12 = ic2*A_[4][1]
+rc11
+rc12
+ica.mean_[4]
+
+0:= Patna
+1:= Mumbai
+2:= Delhi
+3:= BHUBANESHWAR
+4:=LUCKNOW
+'''
+S_ = S_*100000
+A_ = A_/100000
+
+df = pd.DataFrame()
+df[0] = S_.T[0]
+df[1] = S_.T[1]
+df[2] = S_.T[2]
+df[3] = S_.T[3]
+df[4] = S_.T[4]
+
+ica = FastICA(n_components=2)
+s_ = ica.fit_transform(X)
+a_ = ica.mixing_
+'''
+
+from statsmodels.tsa.seasonal import seasonal_decompose
+series = retail["DELHI"]
+result = seasonal_decompose(series, model='additive')
+print(result.trend)
+print(result.seasonal)
+print(result.resid)
+print(result.observed)
+
+from random import randrange
+from pandas import Series
+from matplotlib import pyplot
+from statsmodels.tsa.seasonal import seasonal_decompose
+series = [i+randrange(10) for i in range(1,100)]
+result = seasonal_decompose(series, model='additive', freq=1)
+result.plot()
+pyplot.show()
+
+t = []
+for i in range(0,3461):
+	t.ix[i] = (retail["DELHI"].ix[i] - trend.ix[i])

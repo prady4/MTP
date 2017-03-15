@@ -59,7 +59,7 @@ def MovingWndw(ts1, ts2, factor, days):
 
 #df.plot()
 anomList = MovingWndw(retail.ix[:,index], df[0], 1.01, 3)
-def tmp(tmp1):
+def threshold(tmp1):
 	indi = df[df[1] >= tmp1].index.tolist()
 	indi1 = df[df[1] <= -tmp1].index.tolist()
 	for i in indi:
@@ -71,7 +71,7 @@ def tmp(tmp1):
 
 tmp(200)	#df[1].mad()
 
-def tmp(tmp1):
+def positiveThreshold(tmp1):
 	indi = df[df[1] >= tmp1].index.tolist()
 	#indi1 = df[df[1] <= -tmp1].index.tolist()
 	'''
@@ -90,7 +90,9 @@ tmp(1.4*df[1].mad())
 
 def tmp(tmp1):
 	indi = df[df[1] >= tmp1].index.tolist()
-	#indi1 = df[df[1] <= -tmp1].index.tolist()
+	indi1 = df[df[1] <= -tmp1].index.tolist()
+	indi = indi + indi1
+	indi.sort()
 	for i in indi:
 		plt.axvline(x=i, color='c')
 	plt.plot(retail["DELHI"], 'k')
@@ -103,7 +105,6 @@ def tmp(tmp1):
 	plt.yticks(fontsize=20)
 	plt.title("Anomalies", fontsize=20)
 	plt.grid()
-	plt.show()
 	plt.show()
 
 tmp(1.4*df[1].mad())

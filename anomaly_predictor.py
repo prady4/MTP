@@ -54,7 +54,7 @@ plt.show()
 #6: maximum rate of increase
 #7: maximum rate of decrease --> Need Improvement
 
-#s and e are defined
+#s and e are anomaly indices
 #s = [3, 325, 345, 401, 421, 594, 636, 674, 1018, 1046, 1370, 1395, 1426, 1499, 1544, 1776, 1915, 1955, 2080, 2235, 2558, 2602, 2680, 2755, 2775, 2803, 2833, 2917, 3072, 3113, 3145, 3230, 3264, 3444]
 #e = [36, 332, 379, 408, 549, 616, 653, 716, 1038, 1095, 1387, 1416, 1449, 1508, 1712, 1891, 1933, 2025, 2185, 2302, 2593, 2613, 2725, 2767, 2795, 2822, 2909, 2964, 3104, 3123, 3221, 3244, 3434, 3460]
 feature = pd.DataFrame()
@@ -102,3 +102,11 @@ l1 = [-1 for x in range(0,33)]
 labels = l+l1
 
 online_predictor(feature, labels, 10, 2)
+
+#creating training set
+train = pd.DataFrame()
+retail = pd.read_csv("processed_retail.csv")
+data = retail.ix[:,2]
+for i in range(6, 3461):
+	train[i-6] = data.ix[i-6:i].reset_index(drop=True)
+	train.set_value(7, i-6, 1)

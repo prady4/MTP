@@ -103,10 +103,42 @@ labels = l+l1
 
 online_predictor(feature, labels, 10, 2)
 
-#creating training set
+#list of sets
+anom_set = []
+for i in range(0,len(s)):
+	anom_set.append(set(np.arange(s[i], e[i]+1)))
+
+#creating training set using timeseries only
 train = pd.DataFrame()
+train_label = pd.DataFrame(np.zeros((3454, 1)))
 retail = pd.read_csv("processed_retail.csv")
 data = retail.ix[:,2]
 for i in range(6, 3461):
 	train[i-6] = data.ix[i-6:i].reset_index(drop=True)
-	train.set_value(7, i-6, 1)
+	train_label.ix[i-6] = 0
+	for ele in anom_set:
+		if i in ele:
+			train_label.ix[i-6] = 1
+			break
+
+
+train.tranpose()
+
+#creatning training set using statistical features
+train = pd.DataFrame(np.zeros((3454, 7)))
+retail = pd.read_csv("processed_retail.csv")
+#index = 2 for Delhi
+data = retail.ix[:,2]
+for i in range(6, 3461):
+	x = data.ix[i-6:i]
+	train.ix[i-6,0] = x.mean()
+	train.ix[i-6,1] = x.skew()
+	train.ix[i-6,2] = x.max()
+	train.ix[i-6,3] = x.min()
+	if max(x) != min(x):
+		train.ix[i-6,4] = x.kurtosis()
+	train.ix[i-6,5] = len(signal.find_peaks_cwt(x, np.arange(1,10)))
+	tmp = x/x.shift(3)
+	tmp = tmp.fillna(0)
+	train.ix[i-6,6] = max(tmp)
+	train.ix[i-6,7] = min(tmp)

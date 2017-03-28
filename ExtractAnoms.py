@@ -89,12 +89,11 @@ def positiveThreshold(tmp1):
 tmp(1.4*df[1].mad())
 
 def tmp(tmp1):
-	indi = df[df[1] >= tmp1].index.tolist()
-	indi1 = df[df[1] <= -tmp1].index.tolist()
-	indi = indi + indi1
-	indi.sort()
-	for i in indi:
-		plt.axvline(x=i, color='c')
+indi = df[df[1] >= tmp1].index.tolist()
+indi1 = df[df[1] <= -tmp1].index.tolist()
+indi = indi + indi1
+	#for i in indi:
+	#	plt.axvline(x=i, color='c')
 	plt.plot(retail["DELHI"], 'k')
 	labels = ['2007', '2008', '2009', '2010', '2011', '2012', '2013', '2014', '2015']
 	d = [i*365 for i in range(1,10)]

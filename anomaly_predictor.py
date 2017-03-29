@@ -108,6 +108,11 @@ anom_set = []
 for i in range(0,len(s)):
 	anom_set.append(set(np.arange(s[i], e[i]+1)))
 
+#list of sets
+anom_set = []
+for i in range(0,len(aa)):
+	anom_set.append(set(np.arange(aa[i]-6, aa[i]+1)))
+
 #creating training set using timeseries only
 train = pd.DataFrame()
 train_label = pd.DataFrame(np.zeros((3454, 1)))
